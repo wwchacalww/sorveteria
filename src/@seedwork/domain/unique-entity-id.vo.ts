@@ -4,6 +4,7 @@ import InvalidUuidError from "../errors/invalid-uuid.error";
 export default class UniqueEntityId {
   constructor(public readonly id?: string) {
     this.id = id ?? uuidV4();
+    this.validate();
   }
 
   validate(): void {
