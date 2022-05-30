@@ -4,3 +4,4 @@ node_modules/
 .env.development
 .vscode
 tsconfig.build.json
+.docker/zsh/history/.zsh_history
