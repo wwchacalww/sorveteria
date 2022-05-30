@@ -1,0 +1,8 @@
+@startuml
+:Admin: -> (Criar produto)
+:Admin: -> (Atualizar preço produto)
+:Admin: -> (excluir produto)
+:Admin: -> (consultar produto)
+:Admin: -> (listar produtos)
+
+@enduml

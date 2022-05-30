@@ -1,0 +1,20 @@
+@startuml
+
+entity Product
+
+Product : uuid id
+Product : string name
+Product : string description
+Product : string category
+Product : boolean is_active
+Product : date createdAt
+Product : date updatedAt
+
+Product : create()
+Product : update()
+Product : delete()
+Product : find()
+Product : findAll()
+Product : activete()
+Product : deactivate()
+@enduml
