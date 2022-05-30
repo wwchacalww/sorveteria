@@ -6,8 +6,8 @@ Product : uuid id
 Product : string name
 Product : string description
 Product : string category
-Product : boolean is_active
 Product : string barcode
+Product : boolean is_active
 Product : date createdAt
 Product : date updatedAt
 
