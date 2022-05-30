@@ -10,7 +10,9 @@
   Entidade -> infra <br>
 
   ### Testes 
-  Jest com Swrc para acelerar o processamento dos testes<br>
+  Jest com Swc para acelerar o processamento dos testes<br>
   Instalação do jest dentro do container comando:<br> 
   - npm install jest @type/jest --save-dev
+  - npx jest --init -> Iniciar a configuração do jest
+  - npm install @swc/core @swc/jest --save-dev
         
