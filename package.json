@@ -1,0 +1,26 @@
+{
+  "name": "sorveteria_hakuna_matata",
+  "version": "1.0.0",
+  "description": "## Repositório para fins de fixação dos estudos de clean architecture",
+  "main": "index.js",
+  "scripts": {
+    "ts-node": "ts-node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wwchacalww/sorveteria.git"
+  },
+  "keywords": [],
+  "author": "Vicente Cartaxo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wwchacalww/sorveteria/issues"
+  },
+  "homepage": "https://github.com/wwchacalww/sorveteria#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
+  }
+}
