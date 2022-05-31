@@ -2,6 +2,9 @@ import Barcode from "../../../@seedwork/domain/value-objects/barcode.vo";
 import { Product, ProductProps } from "./product";
 
 describe("Product Unit Test", () => {
+  beforeEach(() => {
+    Product.validate = jest.fn();
+  });
   test("construct of product", () => {
     let props: ProductProps = {
       name: "test",
@@ -10,7 +13,7 @@ describe("Product Unit Test", () => {
     };
 
     let product = new Product(props);
-
+    expect(Product.validate).toHaveBeenCalled();
     expect(product.props.created_at).toBeInstanceOf(Date);
     props.created_at = new Date();
     props.updated_at = new Date();
