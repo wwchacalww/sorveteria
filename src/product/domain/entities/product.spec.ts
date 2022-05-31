@@ -94,4 +94,28 @@ describe("Product Unit Test", () => {
     product["updatedAt"] = new Date();
     expect(product.updatedAt).toBeInstanceOf(Date);
   });
+
+  test("update of product", () => {
+    let props: ProductProps = {
+      name: "test",
+      description: "test description",
+      category: "picole",
+      barcode: new Barcode("123456789"),
+      is_active: true,
+    };
+
+    let product = new Product(props);
+
+    product.changeName("test2");
+    expect(product.name).toBe("test2");
+    product.changeDescription("test description2");
+    expect(product.description).toBe("test description2");
+    product.changeBarcode("1334-2342 2340aer");
+    expect(product.barcode.value).toBe("1334-2342 2340aer");
+    expect(product.code).toBe("1334-2342 2340aer");
+    product.desactivate();
+    expect(product.isActive).toBe(false);
+    product.activate();
+    expect(product.isActive).toBe(true);
+  });
 });

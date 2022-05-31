@@ -68,4 +68,24 @@ export class Product extends Entity<ProductProps> {
   private set updatedAt(value: Date) {
     this.props.updated_at = value ?? new Date();
   }
+
+  changeName(name: string) {
+    this.name = name;
+  }
+
+  changeDescription(description: string) {
+    this.description = description;
+  }
+
+  changeBarcode(barcode: string) {
+    this.barcode = new Barcode(barcode);
+  }
+
+  activate() {
+    this.isActive = true;
+  }
+
+  desactivate() {
+    this.isActive = false;
+  }
 }
