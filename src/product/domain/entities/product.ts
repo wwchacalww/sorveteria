@@ -1,10 +1,11 @@
+import Barcode from "@seedwork/domain/value-objects/barcode.vo";
 import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 
 export type ProductProps = {
   name: string;
   description: string;
   category: string;
-  barcode?: string;
+  barcode?: Barcode;
   is_active?: boolean;
   created_at?: Date;
   updated_at?: Date;
@@ -15,7 +16,7 @@ export class Product {
   constructor(public readonly props: ProductProps, id?: UniqueEntityId) {
     this.id = id || new UniqueEntityId();
     this.isActive = this.props.is_active ?? true;
-    this.barcode = this.props.barcode ?? "";
+    this.barcode = this.props.barcode ?? null;
     this.props.created_at = this.props.created_at ?? new Date();
     this.updatedAt = this.props.updated_at ?? new Date();
   }
@@ -41,11 +42,11 @@ export class Product {
     this.props.category = value;
   }
 
-  get barcode(): string {
-    return this.props.barcode ?? "";
+  get barcode(): Barcode {
+    return this.props.barcode ?? null;
   }
-  private set barcode(value: string) {
-    this.props.barcode = value ?? "";
+  private set barcode(value: Barcode) {
+    this.props.barcode = value ?? null;
   }
 
   get isActive() {
