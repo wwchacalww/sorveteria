@@ -1,5 +1,5 @@
 import { ValueObject } from "./value-object";
-import InvalidBarcodeError from "../../errors/invalid-barcode.error";
+import InvalidBarcodeError from "../errors/invalid-barcode.error";
 
 export default class Barcode extends ValueObject<string> {
   constructor(readonly barcode: string) {

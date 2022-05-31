@@ -1,4 +1,4 @@
-import InvalidBarcodeError from "../../../errors/invalid-barcode.error";
+import InvalidBarcodeError from "../../errors/invalid-barcode.error";
 import Barcode from "../barcode.vo";
 
 describe("Barcode Unit Test", () => {
