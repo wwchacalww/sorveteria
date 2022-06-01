@@ -2,6 +2,7 @@ import Barcode from "../../../@seedwork/domain/value-objects/barcode.vo";
 import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 import Entity from "../../../@seedwork/domain/entity/entity";
 import ValidatorRules from "../../../@seedwork/domain/validators/validator-rules";
+import ProductValidatorFactory from "../validators/product.validator";
 export type ProductProps = {
   name: string;
   description: string;
@@ -22,20 +23,25 @@ export class Product extends Entity<ProductProps> {
     this.updatedAt = this.props.updated_at ?? new Date();
   }
 
-  static validate(
-    props: Omit<ProductProps, "created_at" | "updated_at" | "barcode">
-  ): void {
-    const { name, description, category, is_active } = props;
-    ValidatorRules.values(name, "name").required().string().maxLength(50);
-    ValidatorRules.values(description, "description")
-      .required()
-      .string()
-      .maxLength(150);
-    ValidatorRules.values(category, "category")
-      .required()
-      .string()
-      .maxLength(30);
-    ValidatorRules.values(is_active, "is_active").boolean();
+  // static validate(
+  //   props: Omit<ProductProps, "created_at" | "updated_at" | "barcode">
+  // ): void {
+  //   const { name, description, category, is_active } = props;
+  //   ValidatorRules.values(name, "name").required().string().maxLength(50);
+  //   ValidatorRules.values(description, "description")
+  //     .required()
+  //     .string()
+  //     .maxLength(150);
+  //   ValidatorRules.values(category, "category")
+  //     .required()
+  //     .string()
+  //     .maxLength(30);
+  //   ValidatorRules.values(is_active, "is_active").boolean();
+  // }
+
+  static validate(props: Omit<ProductProps, "barcode">) {
+    const validator = ProductValidatorFactory.create();
+    validator.validate(props);
   }
 
   get name(): string {
