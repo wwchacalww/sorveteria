@@ -3,6 +3,7 @@ import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entit
 import Entity from "../../../@seedwork/domain/entity/entity";
 import ValidatorRules from "../../../@seedwork/domain/validators/validator-rules";
 import ProductValidatorFactory from "../validators/product.validator";
+import { EntityValidationError } from "../../../@seedwork/domain/errors/validation.error";
 export type ProductProps = {
   name: string;
   description: string;
@@ -41,7 +42,10 @@ export class Product extends Entity<ProductProps> {
 
   static validate(props: Omit<ProductProps, "barcode">) {
     const validator = ProductValidatorFactory.create();
-    validator.validate(props);
+    const isValid = validator.validate(props);
+    if (!isValid) {
+      throw new EntityValidationError(validator.errors);
+    }
   }
 
   get name(): string {

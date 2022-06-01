@@ -27,7 +27,7 @@ export class ProductRules {
 
   @IsBoolean()
   @IsOptional()
-  is_ative: boolean;
+  is_active: boolean;
 
   @IsDate()
   @IsOptional()
@@ -58,7 +58,7 @@ export class ProductRules {
 
 export class ProductValidator extends ClassValidatorFields<ProductRules> {
   validate(data: ProductProps): boolean {
-    return super.validate(new Product(data));
+    return super.validate(new ProductRules(data ?? ({} as any)));
   }
 }
 
