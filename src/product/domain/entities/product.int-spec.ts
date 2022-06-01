@@ -10,79 +10,148 @@ describe("Product Integration Test", () => {
           name: "",
           description: "test description",
           category: "picole",
-          error: "The name is required",
+          error: { name: ["name should not be empty"] },
         },
         {
           name: null,
           description: "test description",
           category: "picole",
-          error: "The name is required",
+          error: {
+            name: [
+              "name should not be empty",
+              "name must be a string",
+              "name must be shorter than or equal to 50 characters",
+            ],
+          },
         },
         {
           name: undefined,
           description: "test description",
           category: "picole",
-          error: "The name is required",
+          error: {
+            name: [
+              "name should not be empty",
+              "name must be a string",
+              "name must be shorter than or equal to 50 characters",
+            ],
+          },
         },
         {
           name: 5,
           description: "test description",
           category: "picole",
-          error: "The name must be a string",
+          error: {
+            name: [
+              "name must be a string",
+              "name must be shorter than or equal to 50 characters",
+            ],
+          },
         },
         {
           name: true,
           description: "test description",
           category: "picole",
-          error: "The name must be a string",
+          error: {
+            name: [
+              "name must be a string",
+              "name must be shorter than or equal to 50 characters",
+            ],
+          },
         },
         {
           name: { prop: "test" },
           description: "test description",
           category: "picole",
-          error: "The name must be a string",
+          error: {
+            name: [
+              "name must be a string",
+              "name must be shorter than or equal to 50 characters",
+            ],
+          },
         },
         {
           name: "t".repeat(51),
           description: "test description",
           category: "picole",
-          error: "The name must be less or equal than 50 characters",
+          error: {
+            name: ["name must be shorter than or equal to 50 characters"],
+          },
         },
         {
           name: "test",
           description: "",
           category: "picole",
-          error: "The description is required",
+          error: { description: ["description should not be empty"] },
         },
         {
           name: "test",
           description: null,
           category: "picole",
-          error: "The description is required",
+          error: {
+            description: [
+              "description should not be empty",
+              "description must be a string",
+              "description must be shorter than or equal to 150 characters",
+            ],
+          },
         },
         {
           name: "test",
           description: undefined,
           category: "picole",
-          error: "The description is required",
+          error: {
+            description: [
+              "description should not be empty",
+              "description must be a string",
+              "description must be shorter than or equal to 150 characters",
+            ],
+          },
         },
         {
           name: "test",
           description: "test description",
           category: "",
-          error: "The category is required",
+          error: {
+            category: ["category should not be empty"],
+          },
         },
         {
           name: "test",
           description: "test description",
-          category: null,
-          error: "The category is required",
+          category: null as any,
+          error: {
+            category: [
+              "category should not be empty",
+              "category must be a string",
+              "category must be shorter than or equal to 30 characters",
+            ],
+          },
         },
         {
           name: "test",
           description: "test description",
           category: undefined,
-          error: "The category is required",
+          error: {
+            category: [
+              "category should not be empty",
+              "category must be a string",
+              "category must be shorter than or equal to 30 characters",
+            ],
+          },
+        },
+        {
+          name: "test",
+          description: "test description",
+          category: "popsicle",
+          is_active: "true",
+          error: { is_active: ["is_active must be a boolean value"] },
+        },
+        {
+          name: "test",
+          description: "test description",
+          category: "popsicle",
+          is_active: 0,
+          error: { is_active: ["is_active must be a boolean value"] },
         },
       ];
 
@@ -93,8 +162,9 @@ describe("Product Integration Test", () => {
               name: value.name as any,
               description: value.description,
               category: value.category,
+              is_active: value.is_active ?? (null as any),
             })
-        ).toThrow(new ValidationError(value.error));
+        ).containsErrorMessages(value.error);
       });
     });
 
