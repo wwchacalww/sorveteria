@@ -1,4 +1,4 @@
-import { SearchParams } from "./repository-contracts";
+import { SearchParams, SearchResult } from "./repository-contracts";
 describe("Searchparams Unit Test", () => {
   test("page prop", () => {
     const arrange = [
@@ -118,5 +118,75 @@ describe("Searchparams Unit Test", () => {
       const searchParams = new SearchParams({ filter: filter as any });
       expect(searchParams.filter).toBe(expected);
     });
+  });
+});
+
+describe("SearchResult Unit Test", () => {
+  test("constructo props", () => {
+    let searchResult = new SearchResult({
+      items: ["Entity1", "Entity2"] as any,
+      total: 4,
+      current_page: 1,
+      per_page: 2,
+      sort: null,
+      sort_dir: null,
+      filter: null,
+    });
+    expect(searchResult.toJSON()).toStrictEqual({
+      items: ["Entity1", "Entity2"] as any,
+      total: 4,
+      current_page: 1,
+      per_page: 2,
+      last_page: 2,
+      sort: null,
+      sort_dir: null,
+      filter: null,
+    });
+
+    searchResult = new SearchResult({
+      items: ["Entity1", "Entity2"] as any,
+      total: 4,
+      current_page: 2,
+      per_page: 2,
+      sort: "name",
+      sort_dir: "asc",
+      filter: "test",
+    });
+    expect(searchResult.toJSON()).toStrictEqual({
+      items: ["Entity1", "Entity2"] as any,
+      total: 4,
+      current_page: 2,
+      per_page: 2,
+      last_page: 2,
+      sort: "name",
+      sort_dir: "asc",
+      filter: "test",
+    });
+  });
+
+  it("should set last_page = 1 when per_page is greater than total", () => {
+    const searchResult = new SearchResult({
+      items: [] as any,
+      total: 2,
+      current_page: 1,
+      per_page: 15,
+      sort: "name",
+      sort_dir: "asc",
+      filter: "test",
+    });
+    expect(searchResult.last_page).toBe(1);
+  });
+
+  test("last_page prop, when total is not multiple of per_page", () => {
+    const searchResult = new SearchResult({
+      items: [] as any,
+      total: 23,
+      current_page: 1,
+      per_page: 5,
+      sort: "name",
+      sort_dir: "asc",
+      filter: "test",
+    });
+    expect(searchResult.last_page).toBe(5);
   });
 });
