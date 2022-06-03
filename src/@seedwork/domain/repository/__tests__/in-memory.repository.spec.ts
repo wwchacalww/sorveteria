@@ -1,7 +1,7 @@
-import Entity from "../entity/entity";
-import NotFoundError from "../errors/not-found.error";
-import UniqueEntityId from "../value-objects/unique-entity-id.vo";
-import { InMemoryRepositoy } from "./in-memory.repository";
+import Entity from "../../entity/entity";
+import NotFoundError from "../../errors/not-found.error";
+import UniqueEntityId from "../../value-objects/unique-entity-id.vo";
+import { InMemoryRepositoy } from "../in-memory.repository";
 
 type stubProps = {
   name: string;
