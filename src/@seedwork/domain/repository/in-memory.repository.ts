@@ -95,11 +95,13 @@ export abstract class InMemorySearchableRepository<E extends Entity>
     }
 
     return [...items].sort((a, b) => {
-      if (a.props[sort].toLowerCase() < b.props[sort].toLowerCase()) {
+      const aValue = `${a.props[sort]}`.toLowerCase();
+      const bValue = `${b.props[sort]}`.toLowerCase();
+      if (aValue < bValue) {
         return sort_dir === "asc" ? -1 : 1;
       }
 
-      if (a.props[sort].toLowerCase() > b.props[sort].toLowerCase()) {
+      if (aValue > bValue) {
         return sort_dir === "asc" ? 1 : -1;
       }
 
