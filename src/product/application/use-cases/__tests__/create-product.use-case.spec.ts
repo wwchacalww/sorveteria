@@ -31,7 +31,7 @@ describe("CreateProductUseCase Unit Test", () => {
       name: "Product Test",
       description: "Product Description Test",
       category: "Product Category Test",
-      barcode: new Barcode("123456as 789"),
+      barcode: "123456as 789" as any,
       is_active: false,
     };
     output = await createProductUseCase.execute(inputBarcode);
