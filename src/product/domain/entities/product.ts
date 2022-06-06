@@ -4,6 +4,7 @@ import Entity from "../../../@seedwork/domain/entity/entity";
 import ValidatorRules from "../../../@seedwork/domain/validators/validator-rules";
 import ProductValidatorFactory from "../validators/product.validator";
 import { EntityValidationError } from "../../../@seedwork/domain/errors/validation.error";
+
 export type ProductProps = {
   name: string;
   description: string;
