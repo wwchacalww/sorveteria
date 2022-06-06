@@ -76,8 +76,12 @@ export class Product extends Entity<ProductProps> {
   get barcode(): Barcode {
     return this.props.barcode ?? null;
   }
-  private set barcode(value: Barcode) {
-    this.props.barcode = value ?? null;
+  private set barcode(value: string | Barcode) {
+    if (typeof value === "string") {
+      this.props.barcode = new Barcode(value);
+    } else {
+      this.props.barcode = value ?? null;
+    }
   }
 
   get isActive() {
