@@ -1,4 +1,3 @@
-import Barcode from "../../../../@seedwork/domain/value-objects/barcode.vo";
 import ProductInMemoryRepository from "../../../infra/repository/product-in-memory.repository";
 import CreateProductUseCase from "../create-product.use-case";
 describe("CreateProductUseCase Unit Test", () => {
