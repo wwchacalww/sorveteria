@@ -24,7 +24,7 @@ export default class ListProductsUseCase implements UseCase<Input, Output> {
       items: searchResult.items.map((item) =>
         ProductOutputMapper.toOutput(item)
       ),
-      ...PaginationOutputMapper.toPaginationOutput(searchResult),
+      ...PaginationOutputMapper.toOutput(searchResult),
     };
   }
 }
