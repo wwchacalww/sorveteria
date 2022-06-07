@@ -1,23 +1,15 @@
 import ProductRepository from "../../domain/repository/product.repository";
-
-export type InputGetProductDTO = {
+import UseCase from "../../../@seedwork/application/use-case";
+import { ProductOutput } from "../dto/products-output.dto";
+export type Input = {
   id: string;
 };
 
-export type OutputGetProductDTO = {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  barcode?: string;
-  is_active?: boolean;
-  created_at: Date;
-  updated_at: Date;
-};
-export default class GetProductUseCase {
+export type Output = ProductOutput;
+export default class GetProductUseCase implements UseCase<Input, Output> {
   constructor(private productRepo: ProductRepository.Repository) {}
 
-  async execute(input: InputGetProductDTO): Promise<OutputGetProductDTO> {
+  async execute(input: Input): Promise<Output> {
     const product = await this.productRepo.findById(input.id);
     return {
       id: product.id,
