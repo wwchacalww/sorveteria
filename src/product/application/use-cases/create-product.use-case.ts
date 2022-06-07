@@ -1,8 +1,10 @@
 import { Product } from "../../../product/domain/entities/product";
 import Barcode from "../../../@seedwork/domain/value-objects/barcode.vo";
 import ProductRepository from "../../../product/domain/repository/product.repository";
+import UseCase from "../../../@seedwork/application/use-case";
+import { ProductOutput } from "../dto/products-output.dto";
 
-export type InputCreateProductDTO = {
+export type Input = {
   name: string;
   description: string;
   category: string;
@@ -10,20 +12,11 @@ export type InputCreateProductDTO = {
   is_active?: boolean;
 };
 
-export type OutputCreateProductDTO = {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  barcode?: string;
-  is_active?: boolean;
-  created_at: Date;
-  updated_at: Date;
-};
-export default class CreateProductUseCase {
+export type Output = ProductOutput;
+export default class CreateProductUseCase implements UseCase<Input, Output> {
   constructor(private productRepo: ProductRepository.Repository) {}
 
-  async execute(input: InputCreateProductDTO): Promise<OutputCreateProductDTO> {
+  async execute(input: Input): Promise<Output> {
     const product = new Product(input);
     await this.productRepo.insert(product);
     return {
