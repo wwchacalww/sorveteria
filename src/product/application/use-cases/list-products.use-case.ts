@@ -1,8 +1,11 @@
 import ProductRepository from "../../domain/repository/product.repository";
 import UseCase from "../../../@seedwork/application/use-case";
-import { ProductOutput } from "../dto/products-output.dto";
-import { SearchInputDto } from "../../../@seedwork/application/dto/search-input.dto";
-import { PaginationOutputDto } from "../../../@seedwork/application/dto/pagination-output.dto";
+import { ProductOutput, ProductOutputMapper } from "../dto/products-output";
+import { SearchInputDto } from "../../../@seedwork/application/dto/search-input";
+import {
+  PaginationOutputDto,
+  PaginationOutputMapper,
+} from "../../../@seedwork/application/dto/pagination-output";
 
 export type Input = SearchInputDto;
 
@@ -13,21 +16,15 @@ export default class ListProductsUseCase implements UseCase<Input, Output> {
   async execute(input: Input): Promise<Output> {
     const params = new ProductRepository.SearchParams(input);
     const searchResult = await this.productRepo.search(params);
+    return this.toOutPut(searchResult);
+  }
+
+  private toOutPut(searchResult: ProductRepository.SearchResult): Output {
     return {
-      items: searchResult.items.map((item) => ({
-        id: item.id,
-        name: item.name,
-        description: item.description,
-        category: item.category,
-        barcode: item.barcode.value,
-        is_active: item.isActive,
-        created_at: item.createdAt,
-        updated_at: item.updatedAt,
-      })),
-      total: searchResult.total,
-      current_page: searchResult.current_page,
-      per_page: searchResult.per_page,
-      last_page: searchResult.last_page,
+      items: searchResult.items.map((item) =>
+        ProductOutputMapper.toOutput(item)
+      ),
+      ...PaginationOutputMapper.toPaginationOutput(searchResult),
     };
   }
 }
