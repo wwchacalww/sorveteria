@@ -2,7 +2,7 @@ import { Product } from "../../../product/domain/entities/product";
 import Barcode from "../../../@seedwork/domain/value-objects/barcode.vo";
 import ProductRepository from "../../../product/domain/repository/product.repository";
 import UseCase from "../../../@seedwork/application/use-case";
-import { ProductOutput } from "../dto/products-output.dto";
+import { ProductOutput, ProductOutputMapper } from "../dto/products-output";
 
 export type Input = {
   name: string;
@@ -19,15 +19,6 @@ export default class CreateProductUseCase implements UseCase<Input, Output> {
   async execute(input: Input): Promise<Output> {
     const product = new Product(input);
     await this.productRepo.insert(product);
-    return {
-      id: product.id,
-      name: product.name,
-      description: product.description,
-      category: product.category,
-      barcode: product.barcode ? product.barcode.value : null,
-      is_active: product.isActive,
-      created_at: product.createdAt,
-      updated_at: product.updatedAt,
-    };
+    return ProductOutputMapper.toOutput(product);
   }
 }
