@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "## Repositório para fins de fixação dos estudos de clean architecture",
   "main": "index.js",
+  "imports": {
+    "#seedwork": "./dist/@seedwork/*.js",
+    "#product": "./dist/product/*.js"
+  },
   "scripts": {
     "ts-node": "ts-node",
     "tsc": "tsc",
     "tsc:check": "npm run tsc -- --noEmit",
     "clean:tsc": "rm tsconfig.tsbuildinfo",
     "test": "jest",
-    "test:cov": "npm run test -- --coverage"
+    "test:cov": "npm run test -- --coverage",
+    "cti": "cti",
+    "cti:@core": "sh ./cti.sh"
   },
   "repository": {
     "type": "git",
@@ -28,6 +34,7 @@
     "@types/jest": "^27.5.1",
     "@types/node": "^14.14.31",
     "@types/uuid": "^8.3.4",
+    "create-ts-index": "^1.14.0",
     "jest": "^27.5.1",
     "regenerator-runtime": "^0.13.9",
     "ts-node": "^10.8.0",
