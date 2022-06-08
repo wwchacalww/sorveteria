@@ -1,4 +1,4 @@
-import Barcode from "../../../@seedwork/domain/value-objects/barcode.vo";
+import Barcode from "#seedwork/domain/value-objects/barcode.vo";
 import { Product, ProductProps } from "./product";
 
 describe("Product Unit Test", () => {
