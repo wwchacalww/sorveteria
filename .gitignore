@@ -5,3 +5,4 @@ node_modules/
 .vscode
 tsconfig.build.json
 .docker/zsh/history/.zsh_history
+__coverage
