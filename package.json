@@ -1,47 +1,30 @@
 {
-  "name": "sorveteria_hakuna_matata",
-  "version": "1.0.0",
-  "description": "## Repositório para fins de fixação dos estudos de clean architecture",
+  "name": "sorveteria-hakuna",
+  "version": "0.0.1",
+  "description": "",
   "main": "index.js",
-  "imports": {
-    "#seedwork": "./dist/@seedwork/*.js",
-    "#product": "./dist/product/*.js"
+  "dependencies": {
+    "create-ts-index": "^1.14.0"
   },
+  "workspaces": [
+    "./src/@core",
+    "./src/nestjs"
+  ],
+  "devDependencies": {},
   "scripts": {
-    "ts-node": "ts-node",
-    "tsc": "tsc",
-    "tsc:check": "npm run tsc -- --noEmit",
-    "clean:tsc": "rm tsconfig.tsbuildinfo",
-    "test": "jest",
-    "test:cov": "npm run test -- --coverage",
-    "cti": "cti",
-    "cti:@core": "sh ./cti.sh"
+    "prestart:dev": "npm run build -w @core/sorveteria-hakuna",
+    "start:dev": "npm run build:w -w @core/sorveteria-hakuna & npm run start:dev -w nestjs",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wwchacalww/sorveteria.git"
   },
   "keywords": [],
-  "author": "Vicente Cartaxo",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/wwchacalww/sorveteria/issues"
   },
-  "homepage": "https://github.com/wwchacalww/sorveteria#readme",
-  "devDependencies": {
-    "@swc/core": "^1.2.194",
-    "@swc/jest": "^0.2.21",
-    "@types/jest": "^27.5.1",
-    "@types/node": "^14.14.31",
-    "@types/uuid": "^8.3.4",
-    "create-ts-index": "^1.14.0",
-    "jest": "^27.5.1",
-    "regenerator-runtime": "^0.13.9",
-    "ts-node": "^10.8.0",
-    "typescript": "^4.7.2"
-  },
-  "dependencies": {
-    "class-validator": "^0.13.2",
-    "uuid": "^8.3.2"
-  }
+  "homepage": "https://github.com/wwchacalww/sorveteria#readme"
 }
