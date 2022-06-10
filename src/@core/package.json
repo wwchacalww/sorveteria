@@ -1,11 +1,11 @@
 {
   "name": "@core/sorveteria-hakuna",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "## Repositório para fins de fixação dos estudos de clean architecture",
   "main": "index.js",
   "imports": {
-    "#seedwork": "./dist/@seedwork/*.js",
-    "#product": "./dist/product/*.js"
+    "#seedwork/*": "./dist/@seedwork/*.js",
+    "#product/*": "./dist/product/*.js"
   },
   "exports": {
     "./@seedwork/application": "./dist/@seedwork/application/index.js",
@@ -14,13 +14,26 @@
     "./product/domain": "./dist/product/domain/index.js",
     "./product/infra": "./dist/product/infra/index.js"
   },
-  "typesversions": {
+  "typesVersions": {
     ">=4.0": {
-      "@seedwork/application": ["./dist/@seedwork/application/index.d.ts"],
-      "@seedwork/domain": ["./dist/@seedwork/domain/index.d.ts"],
-      "product/application": ["./dist/product/application/index.d.ts"],
-      "product/domain": ["./dist/product/domain/index.d.ts"],
-      "product/infra": ["./dist/product/infra/index.d.ts"]
+      "@seedwork/application": [
+        "./dist/@seedwork/application/index.d.ts"
+      ],
+      "@seedwork/domain": [
+        "./dist/@seedwork/domain/index.d.ts"
+      ],
+      "@seedwork/infra": [
+        "./dist/@seedwork/infra/index.d.ts"
+      ],
+      "product/application": [
+        "./dist/product/application/index.d.ts"
+      ],
+      "product/domain": [
+        "./dist/product/domain/index.d.ts"
+      ],
+      "product/infra": [
+        "./dist/product/infra/index.d.ts"
+      ]
     }
   },
   "scripts": {
