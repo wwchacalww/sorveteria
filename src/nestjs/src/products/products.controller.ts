@@ -6,46 +6,62 @@ import {
   Patch,
   Param,
   Delete,
+  Inject,
+  Put,
+  HttpCode,
+  Query,
 } from '@nestjs/common';
-import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { CreateProductUseCase } from '@core/sorveteria-hakuna/product/application';
+import {
+  CreateProductUseCase,
+  GetProductUseCase,
+  ListProductsUseCase,
+  UpdateProductUseCase,
+  DeleteProductUseCase,
+} from '@core/sorveteria-hakuna/product/application';
+import { SearchProductDto } from './dto/search-product.dto';
 
 @Controller('products')
 export class ProductsController {
-  constructor(
-    private readonly productsService: ProductsService,
-    private createUseCase: CreateProductUseCase.UseCase,
-  ) {}
+  @Inject(CreateProductUseCase.UseCase)
+  private createUseCase: CreateProductUseCase.UseCase;
+
+  @Inject(GetProductUseCase.UseCase)
+  private getUseCase: GetProductUseCase.UseCase;
+
+  @Inject(ListProductsUseCase.UseCase)
+  private listUseCase: ListProductsUseCase.UseCase;
+
+  @Inject(UpdateProductUseCase.UseCase)
+  private updateUseCase: UpdateProductUseCase.UseCase;
+
+  @Inject(DeleteProductUseCase.UseCase)
+  private deleteUseCase: DeleteProductUseCase.UseCase;
 
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
-    return this.createUseCase.execute({
-      name: 'Product 1',
-      description: 'Product 1 description',
-      category: 'Category',
-    });
-    // return this.productsService.create(createProductDto);
+    return this.createUseCase.execute(createProductDto);
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  search(@Query() searchParams: SearchProductDto) {
+    return this.listUseCase.execute(searchParams);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.productsService.findOne(+id);
+    return this.getUseCase.execute({ id });
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productsService.update(+id, updateProductDto);
+    return this.updateUseCase.execute({ id, ...updateProductDto });
   }
 
+  @HttpCode(204)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.productsService.remove(+id);
+    return this.deleteUseCase.execute({ id });
   }
 }

@@ -1,4 +1,9 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateProductDto } from './create-product.dto';
+import { UpdateProductUseCase } from '@core/sorveteria-hakuna/product/application';
 
-export class UpdateProductDto extends PartialType(CreateProductDto) {}
+export class UpdateProductDto implements UpdateProductUseCase.Input {
+  id: string;
+  name: string;
+  description: string;
+  barcode?: string;
+  is_active?: boolean;
+}
