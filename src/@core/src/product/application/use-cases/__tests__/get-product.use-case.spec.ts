@@ -1,6 +1,6 @@
-import NotFoundError from "../../../../@seedwork/domain/errors/not-found.error";
-import { Product } from "../../../domain/entities/product";
-import ProductInMemoryRepository from "../../../infra/repository/product-in-memory.repository";
+import NotFoundError from "#seedwork/domain/errors/not-found.error";
+import { Product } from "#product/domain/entities/product";
+import ProductInMemoryRepository from "#product/infra/db/in-memory/product-in-memory.repository";
 import { GetProductUseCase } from "../get-product.use-case";
 describe("GetProductUseCase Unit Test", () => {
   let usecase: GetProductUseCase.UseCase;

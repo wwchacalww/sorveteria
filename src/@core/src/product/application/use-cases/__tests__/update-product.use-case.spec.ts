@@ -1,7 +1,7 @@
 import { UpdateProductUseCase } from "../update-product.use-case";
-import ProductInMemoryRepository from "../../../infra/repository/product-in-memory.repository";
-import NotFoundError from "../../../../@seedwork/domain/errors/not-found.error";
-import { Product } from "../../../domain/entities/product";
+import ProductInMemoryRepository from "#product/infra/db/in-memory/product-in-memory.repository";
+import NotFoundError from "#seedwork/domain/errors/not-found.error";
+import { Product } from "#product/domain/entities/product";
 
 describe("UpdateProductUseCase Unit Test", () => {
   let repository: ProductInMemoryRepository;
