@@ -1,4 +1,4 @@
-import { Product } from "../../domain/entities/product";
+import { Product } from "#product/domain/entities/product";
 import ProductInMemoryRepository from "./product-in-memory.repository";
 describe("ProductInMemoryRepository", () => {
   let repository: ProductInMemoryRepository;

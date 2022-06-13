@@ -1,4 +1,4 @@
-import ProductInMemoryRepository from "../../../infra/repository/product-in-memory.repository";
+import { ProductInMemoryRepository } from "#product/infra/db/in-memory/product-in-memory.repository";
 import { CreateProductUseCase } from "../create-product.use-case";
 describe("CreateProductUseCase Unit Test", () => {
   let createProductUseCase: CreateProductUseCase.UseCase;

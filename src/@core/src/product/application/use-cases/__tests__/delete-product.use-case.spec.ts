@@ -1,7 +1,7 @@
-import NotFoundError from "../../../../@seedwork/domain/errors/not-found.error";
+import NotFoundError from "#seedwork/domain/errors/not-found.error";
 import { DeleteProductUseCase } from "../delete-product.use-case";
-import ProductInMemoryRepository from "../../../infra/repository/product-in-memory.repository";
-import { Product } from "../../../domain/entities/product";
+import ProductInMemoryRepository from "#product/infra/db/in-memory/product-in-memory.repository";
+import { Product } from "#product/domain/entities/product";
 
 describe("DeleteProductUseCase Unit Tests", () => {
   let useCase: DeleteProductUseCase.UseCase;
