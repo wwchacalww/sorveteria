@@ -15,6 +15,17 @@ export type ProductProps = {
   updated_at?: Date;
 };
 
+type ProductPropsOutput = {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  barcode?: string;
+  is_active?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
+};
+
 export class Product extends Entity<ProductProps> {
   constructor(public readonly props: ProductProps, id?: UniqueEntityId) {
     Product.validate(props);
@@ -126,5 +137,18 @@ export class Product extends Entity<ProductProps> {
 
   desactivate() {
     this.isActive = false;
+  }
+
+  toOutput(): Required<ProductPropsOutput> {
+    return {
+      id: `${this.id}`,
+      name: this.name,
+      category: this.category,
+      description: this.description,
+      barcode: `${this.barcode}`,
+      is_active: this.isActive,
+      created_at: this.createdAt,
+      updated_at: this.updatedAt,
+    } as Required<ProductPropsOutput>;
   }
 }
