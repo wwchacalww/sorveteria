@@ -115,4 +115,9 @@ describe("ProductModel Unit Test", () => {
     const product = await ProductModel.create(arrange);
     expect(product.toJSON()).toStrictEqual(arrange);
   });
+
+  test("factory", async () => {
+    await ProductModel.factory().create();
+    console.log(await ProductModel.findAll());
+  });
 });
