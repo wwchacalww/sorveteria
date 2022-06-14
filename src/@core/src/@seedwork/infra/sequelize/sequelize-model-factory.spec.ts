@@ -3,12 +3,12 @@ import {
   DataType,
   Model,
   PrimaryKey,
-  Sequelize,
   Table,
 } from "sequelize-typescript";
 import { SequelizeModelFactory } from "./sequelize-model-factory";
 import Chance from "chance";
 import { validate as uuidValidate } from "uuid";
+import { setupSequelize } from "../testing/helper/db";
 
 const chance = Chance();
 @Table({ tableName: "stubs", timestamps: false })
@@ -30,24 +30,7 @@ class Stub extends Model {
 }
 
 describe("SequelizeModelFactory Unit Tests", () => {
-  let sequelize: Sequelize;
-
-  beforeAll(() => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      host: ":memory:",
-      logging: false,
-      models: [Stub],
-    });
-  });
-
-  beforeEach(async () => {
-    await sequelize.sync({ force: true });
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
-  });
+  setupSequelize({ models: [Stub] });
 
   test("create method", async () => {
     let model = await Stub.factory().create();

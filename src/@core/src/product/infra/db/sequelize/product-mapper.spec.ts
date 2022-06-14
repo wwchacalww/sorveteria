@@ -1,28 +1,11 @@
 import { Product } from "#product/domain";
 import { LoadEntityError, UniqueEntityId } from "#seedwork/domain";
-import { Sequelize } from "sequelize-typescript";
+import { setupSequelize } from "#seedwork/infra/testing/helper/db";
 import { ProductMapper } from "./product-mapper";
 import { ProductModel } from "./product-model";
 
 describe("ProductMapper Unit Test", () => {
-  let sequelize: Sequelize;
-
-  beforeAll(() => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      host: ":memory:",
-      logging: false,
-      models: [ProductModel],
-    });
-  });
-
-  beforeEach(async () => {
-    await sequelize.sync({ force: true });
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
-  });
+  setupSequelize({ models: [ProductModel] });
 
   it("should throw error when category is invalid", async () => {
     const model = ProductModel.build({
@@ -41,6 +24,21 @@ describe("ProductMapper Unit Test", () => {
         ],
       });
     }
+  });
+
+  it("should throw a generic error", () => {
+    const error = new Error("Generic error");
+    const spyValidate = jest
+      .spyOn(Product, "validate")
+      .mockImplementation(() => {
+        throw error;
+      });
+    const model = ProductModel.build({
+      id: "396f4619-cdb5-471c-a129-6d874d95bb8e",
+    });
+    expect(() => ProductMapper.toEntity(model)).toThrow(error);
+    expect(spyValidate).toHaveBeenCalled();
+    spyValidate.mockRestore();
   });
 
   it("should be convert a model for an entity", () => {
@@ -71,18 +69,5 @@ describe("ProductMapper Unit Test", () => {
         new UniqueEntityId("396f4619-cdb5-471c-a129-6d874d95bb8e")
       ).toOutput()
     );
-  });
-
-  it("should throw a generic error", () => {
-    const error = new Error("Generic error");
-    const spyValidate = jest
-      .spyOn(Product, "validate")
-      .mockImplementation(() => {
-        throw error;
-      });
-    const model = ProductModel.build({
-      id: "396f4619-cdb5-471c-a129-6d874d95bb8e",
-    });
-    expect(() => ProductMapper.toEntity(model)).toThrow(error);
   });
 });

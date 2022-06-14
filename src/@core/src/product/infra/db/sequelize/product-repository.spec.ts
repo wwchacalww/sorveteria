@@ -1,30 +1,15 @@
 import { Product } from "#product/domain";
 import { NotFoundError, UniqueEntityId } from "#seedwork/domain";
-import { stringify } from "querystring";
+import { setupSequelize } from "#seedwork/infra/testing/helper/db";
 import { Sequelize } from "sequelize-typescript";
 import { ProductModel } from "./product-model";
 import { ProductSequelizeRepository } from "./product-repository";
 
 describe("ProductRepository Unit Test", () => {
+  setupSequelize({ models: [ProductModel] });
   let repository: ProductSequelizeRepository;
-  let sequelize: Sequelize;
-
-  beforeAll(() => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      host: ":memory:",
-      logging: false,
-      models: [ProductModel],
-    });
-  });
-
   beforeEach(async () => {
-    await sequelize.sync({ force: true });
     repository = new ProductSequelizeRepository(ProductModel);
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
   });
 
   it("should insert a new product", async () => {

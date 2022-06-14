@@ -1,25 +1,9 @@
-import { DataType, Sequelize } from "sequelize-typescript";
+import { setupSequelize } from "#seedwork/infra/testing/helper/db";
+import { DataType } from "sequelize-typescript";
 import { ProductModel } from "./product-model";
 
 describe("ProductModel Unit Test", () => {
-  let sequelize: Sequelize;
-
-  beforeAll(() => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      host: ":memory:",
-      logging: false,
-      models: [ProductModel],
-    });
-  });
-
-  beforeEach(async () => {
-    await sequelize.sync({ force: true });
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
-  });
+  setupSequelize({ models: [ProductModel] });
 
   test("Attributes Properties", () => {
     const attributesMap = ProductModel.getAttributes();
@@ -116,8 +100,8 @@ describe("ProductModel Unit Test", () => {
     expect(product.toJSON()).toStrictEqual(arrange);
   });
 
-  test("factory", async () => {
-    await ProductModel.factory().create();
-    console.log(await ProductModel.findAll());
-  });
+  // test("factory", async () => {
+  //   await ProductModel.factory().create();
+  //   console.log(await ProductModel.findAll());
+  // });
 });
